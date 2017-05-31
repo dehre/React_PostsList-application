@@ -1,6 +1,5 @@
 //import actions
-import {FETCH_POSTS} from "../actions/index";
-import {ADD_POST} from "../actions/index";
+import {FETCH_POSTS,ADD_POST} from "../actions/index";
 import _ from "lodash";
 
 export default function postsReducer(state={}, action){

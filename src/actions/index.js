@@ -11,14 +11,16 @@ export function fetchPosts(){
     type: FETCH_POSTS,
     payload: request
   }
-}
+};
 
 export function addPost(post){
+  console.log("Inside action creator, post arg is:",post);
   const request = axios.post(
-    `${ROOT_URL}/posts/new${API_KEY}`,
-    return {
-      type: ADD_POST,
-      payload: request
-    }
+    `${ROOT_URL}/posts${API_KEY}`,
+    post
   );
-}
+  return {
+    type: ADD_POST,
+    payload: request
+  }
+};
