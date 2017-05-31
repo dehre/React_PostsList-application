@@ -10,23 +10,21 @@ class PostsIndex extends Component {
     this.props.fetchPosts();
   }
   renderPosts(){
-    const postsList = _.mapValues(this.props.posts,function(item){
-      console.log("Item to loop in is",item);
-      return(
-        <li>
-          <h2>{item.title}</h2>
-          <p>{item.content}</p>
-          <a href="/">{item.content}</a>
+    return _.map(this.props.posts,function(post){
+      return (
+        <li
+          key={post.id}
+          className="list-group-item">
+          {post.title}
         </li>
       )
     });
-    console.log(postsList);
   }
   render(){
     return(
       <div>
-        POsts Index
-        <ul>
+        <h3>Posts</h3>
+        <ul className="list-group">
           {this.renderPosts()}
         </ul>
       </div>
