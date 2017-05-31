@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
+import {Field, reduxForm} from "redux-form";
+import {Link} from "react-router-dom";
 import {addPost} from "../actions/index";
 
 class PostsNew extends Component {
@@ -12,43 +13,49 @@ class PostsNew extends Component {
       content: this.refs.contents.value
     };
     this.props.addPost(newPost);
+    this.props.history.push("/");
+  }
+
+  renderField(field){
+    return(
+      <div className="form-group">
+        <label>{field.label}</label>
+        <input
+          className="form-control"
+          type="text"
+          {...field.input} />
+      </div>
+    )
   }
 
   render(){
     return(
-      <div>
-
-        <form
-          onSubmit={this.onFormSubmit}
-          className="pt-5">
-          <div className="form-group">
-            <label>Title</label>
-            <input
-              ref="title"
-              type="text"
-              className="form-control"
-              aria-describedby="emailHelp" />
-          </div>
-          <div className="form-group">
-            <label>Categories</label>
-            <input
-              ref="categories"
-              type="text"
-              className="form-control"/>
-          </div>
-          <div className="form-group">
-            <label>Contents</label>
-            <textarea
-              ref="contents"
-              className="form-control"
-              rows="3"></textarea>
-          </div>
-          <button type="submit" className="btn btn-primary">Save</button>
-          <button type="reset" className="ml-4 btn btn-primary">Cancel</button>
-        </form>
-      </div>
+      <form>
+        <Field
+          label="Title"
+          name="title"
+          component={this.renderField}/>
+        <Field
+          label="Categories"
+          name="categories"
+          component={this.renderField}/>
+        <Field
+          label="Post Content"
+          name="content"
+          component={this.renderField}/>
+        <button type="submit">Add Post</button>
+      </form>
     );
   }
 }
 
-export default connect(null,{addPost:addPost})(PostsNew);
+function validate(values){
+  const errors = {};
+  
+  return errors;
+}
+
+export default reduxForm({
+  validate: validate
+  form: "PostsNewForm"
+})(PostsNew);

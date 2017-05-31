@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promise from "redux-promise";
-import {BrowserRouter, Route, Link} from "react-router-dom";
+import {BrowserRouter, Route, Link, Switch} from "react-router-dom";
 
 //reducer
 import reducers from './reducers/index';
@@ -23,8 +23,10 @@ ReactDOM.render(
   )}>
     <BrowserRouter>
       <div>
-        <Route exact path="/" component={PostsIndex} />
-        <Route path="/posts/new" component={PostsNew} />
+        <Switch>
+          <Route exact path="/" component={PostsIndex} />
+          <Route path="/posts/new" component={PostsNew} />
+        </Switch>
       </div>
     </BrowserRouter>
   </Provider>
