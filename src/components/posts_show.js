@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {fetchPost,deletePost} from "../actions/index";
 
 class PostsShow extends Component {
-  onButtonClick(){
+  onDeleteClick(){
     console.log(this.props);
     const {deletePost,match,history} = this.props;
     deletePost(
@@ -14,34 +14,34 @@ class PostsShow extends Component {
       }
     );
   }
-  componentWillMount(){
+  componentDidMount(){
     const {fetchPost,match} = this.props;
-    this.props.fetchPost(match.params.id);
+    fetchPost(match.params.id);
   }
   render(){
-    const id = this.props.match.params.id;
-    let {title,categories,content} = this.props.post[id] || {};
+    const {post} = this.props;
+    if(!post){
+      return(
+        <div>Fetching data..</div>
+      )
+    }
     return(
       <div className="jumbotron">
-        <h1>{title}</h1>
-        <h6>{categories}</h6>
-        <p>{content}</p>
-        <p>
-          <Link className="btn btn-primary btn-lg" to="/">Back</Link>
-        </p>
-        <p>
-          <button
-            onClick={this.onButtonClick.bind(this)}
-            className="btn btn-danger btn-lg">Delete</button>
-        </p>
+        <Link to="/">Back to Index</Link>
+        <button
+          onClick={this.onDeleteClick.bind(this)}
+          className="btn btn-danger pull-xs-right">Delete Post</button>
+        <h3>{post.title}</h3>
+        <h6>Categories: {post.categories}</h6>
+        <p>{post.content}</p>
       </div>
     )
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps({posts}, ownProps){
   return {
-    post: state.posts
+    post: posts[ownProps.match.params.id]
   }
 }
 
