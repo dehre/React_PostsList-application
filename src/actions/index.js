@@ -1,6 +1,6 @@
 import axios from "axios";
 export const FETCH_POSTS = "FETCH_POSTS";
-export const ADD_POST = "ADD_POST";
+export const CREATE_POST = "CREATE_POST";
 
 const ROOT_URL = "http://reduxblog.herokuapp.com/api";
 const API_KEY = "?key=loris4526";
@@ -13,14 +13,14 @@ export function fetchPosts(){
   }
 };
 
-export function addPost(post){
-  console.log("Inside action creator, post arg is:",post);
+export function createPost(values){
+  console.log("Inside action creator, post arg is:",values);
   const request = axios.post(
     `${ROOT_URL}/posts${API_KEY}`,
-    post
+    values
   );
   return {
-    type: ADD_POST,
+    type: CREATE_POST,
     payload: request
   }
 };
